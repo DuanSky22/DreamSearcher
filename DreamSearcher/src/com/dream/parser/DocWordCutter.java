@@ -1,4 +1,4 @@
-package com.sky.parser;
+package com.dream.parser;
 
 
 public class DocWordCutter extends WordCutter {
