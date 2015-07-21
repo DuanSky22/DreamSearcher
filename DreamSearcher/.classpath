@@ -13,9 +13,7 @@
 	<classpathentry kind="lib" path="F:/Programming/git/DreamSearcher/DreamSearcher/lib/poi-ooxml-schemas-3.12-20150511.jar"/>
 	<classpathentry kind="lib" path="F:/Programming/git/DreamSearcher/DreamSearcher/lib/poi-scratchpad-3.12-20150511.jar"/>
 	<classpathentry kind="lib" path="F:/Programming/git/DreamSearcher/DreamSearcher/lib/xmlbeans-2.6.0.jar"/>
-	<classpathentry kind="lib" path="F:/Programming/git/DreamSearcher/DreamSearcher/lib/ICAnalyzer4.5.1.jar"/>
-	<classpathentry kind="lib" path="F:/Programming/git/DreamSearcher/DreamSearcher/lib/lucene4.5.1/lucene-analyzers-common-4.5.1.jar"/>
-	<classpathentry kind="lib" path="F:/Programming/git/DreamSearcher/DreamSearcher/lib/lucene4.5.1/lucene-core-4.5.1.jar"/>
-	<classpathentry kind="lib" path="F:/Programming/git/DreamSearcher/DreamSearcher/lib/lucene4.5.1/lucene-queryparser-4.5.1.jar"/>
+	<classpathentry kind="lib" path="swing2swt.jar"/>
+	<classpathentry kind="lib" path="F:/Programming/git/DreamSearcher/DreamSearcher/lib/swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
