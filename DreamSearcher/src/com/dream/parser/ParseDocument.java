@@ -6,6 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.apache.pdfbox.pdfparser.PDFParser;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.POITextExtractor;
 import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.hdgf.extractor.VisioTextExtractor;
@@ -47,6 +50,16 @@ public class ParseDocument {
 				text=extractor.getText();
 			} catch (IOException | OpenXML4JException
 					| XmlException e) {
+				text="";
+				e.printStackTrace();
+			}
+			break;
+		case "pdf":
+			try {
+				PDFParser pdf=new PDFParser(input);
+				pdf.parse();
+				text=new PDFTextStripper().getText(new PDDocument(pdf.getDocument()));
+			} catch (IOException e) {
 				text="";
 				e.printStackTrace();
 			}
