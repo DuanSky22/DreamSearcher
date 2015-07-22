@@ -1,7 +1,8 @@
 package com.dream.parser;
 
-import java.awt.FileDialog;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,8 +11,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -72,7 +74,7 @@ public class DreamSearcher {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shell = new Shell();
+		shell = new Shell(SWT.CLOSE | SWT.MIN);
 		shell.setSize(690, 460);
 		shell.setText("Dream Searcher");
 		
@@ -101,6 +103,10 @@ public class DreamSearcher {
 				List<String> queryList=new ArrayList<String>();
 				queryList.addAll(Arrays.asList(text.getText().split(" ")));
 				
+//				MessageBox dialog=new MessageBox(shell,SWT.BACKGROUND);
+//				dialog.setText("[重要提示]");
+//				dialog.setMessage("文件数目过多时，搜索可能需要时间，请您耐心等待！在此期间不要点击程序，直到下面出现搜索结果为止。");
+//				dialog.open();
 				DocIndexCreater docIndexCreater=new DocIndexCreater(file.getAbsolutePath());
 				
 				if(docIndexCreater.getDocumentList()==null 
@@ -131,6 +137,44 @@ public class DreamSearcher {
 						item.setText(3,result.get(i).getFileType());
 					}
 				}
+				
+				table.addListener(SWT.MouseDoubleClick, new Listener(){
+
+					@Override
+					public void handleEvent(Event arg0) {
+						TableItem[] tableItems=table.getItems();
+						int chooseIndex=table.getSelectionIndex();
+						TableItem chooseItem=tableItems[chooseIndex];
+						if(chooseItem!=null && chooseItem.getText(1)!=null){
+							File file=new File(chooseItem.getText(1));
+							if(file.exists()){
+								String path = file.getAbsolutePath();
+								try {
+									Runtime.getRuntime().exec("explorer.exe /n, " + path);
+								} catch (IOException e) {
+									MessageBox dialog=new MessageBox(shell,SWT.BACKGROUND);
+									dialog.setText("[错误提示]");
+									dialog.setMessage("打开文件失败，请手动打开！");
+									dialog.open();
+									e.printStackTrace();
+								}
+							}
+						}
+//						Clipboard clipboard=Toolkit.getDefaultToolkit().getSystemClipboard();
+//						StringSelection contents=new StringSelection(chooseItem.getText(1));
+//						clipboard.setContents(contents, null); //设置系统剪贴板内容
+//						
+//						MessageBox dialog=new MessageBox(shell,SWT.BACKGROUND);
+//						dialog.setText("[提示]");
+//						dialog.setMessage("文件地址已复制到剪切板，随便打开一个文件夹拷贝到上面的文件地址即可访问该文件");
+//						dialog.open();
+						
+					}
+					
+				});
+				
+				
+				
 			}
 		});
 		button.setBounds(569, 36, 80, 27);
